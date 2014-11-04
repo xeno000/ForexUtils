@@ -21,6 +21,7 @@ class ForexDb
         db = connect
         db.transaction do
             array.each do |record|
+                p "record " + record
                 db.execute("insert into #{@table_name} ( time_id, currency_pair, open, high, low, close) values (?,?,?,?,?,?)", record.time_id, record.currency_pair, record.open, record.high, record.low, record.close)
             end
         end
