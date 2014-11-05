@@ -15,25 +15,26 @@ forex_db.set_table
 
 folder = ForexDataFolder.read(forex_data_file_folder_name)
 
+chunk_size = 300
+i = 0
+total = 0
+chunk_array = Array.new
+
 folder.all_files.each do |path|
-    p "path " + path
+    i += 1
+    total += 1
+    p  i.to_s + " " + total.to_s + " path " + path
     
     forex_file = ForexDataFile.new(path)
     forex_file.read
     forex_data_line_array = forex_file.select_forex_data_line_array(currency_pair)
 
     record_array = ForexDataRecordArrayFactory.create_array_from_forex_data_line_array(forex_data_line_array)
-    forex_db.insert_forex_data_record_array(record_array)
+    chunk_array.concat(record_array)
+    
+    if i==chunk_size
+        forex_db.insert_forex_data_record_array(chunk_array)
+        i = 0
+        chunk_array = Array.new
+    end
 end
-
-
-
-=begin
-forex_file = ForexDataFile.new("../ForexDataCrawler/ForexiteZip/test_2007_2014-20141104_045903/2014_01_02.zip")
-forex_file.read
-forex_data_line_array = forex_file.select_forex_data_line_array("USDJPY")
-
-record_array = ForexDataRecordArrayFactory.create_array_from_forex_data_line_array(forex_data_line_array)
-forex_db.insert_forex_data_record_array(record_array)
-=end
-
