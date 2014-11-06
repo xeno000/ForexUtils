@@ -6,9 +6,12 @@ require '../ForexDataCrawler/forex_data_folder'
 #currency_pair = "USDJPY"
 #data_range = "20140102_20140114"
 #forex_data_file_folder_name = "test_2007_2014-20141104_045903"
+
+# フォルダにあるデータファイル(Zip)全て使って、指定した通貨の1分足DBを作成
+
 currency_pair = ARGV[0]
-data_range = ARGV[1]
-forex_data_file_folder_name = ARGV[2]
+data_range = ARGV[1] # テーブル名に使用
+forex_data_file_folder_name = ARGV[2] # ForexのZipファイルがあるフォルダ名
 
 forex_db = ForexDb.new(currency_pair, data_range)
 forex_db.set_table
@@ -38,3 +41,5 @@ folder.all_files.each do |path|
         chunk_array = Array.new
     end
 end
+
+forex_db.insert_forex_data_record_array(chunk_array)

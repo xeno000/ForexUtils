@@ -1,5 +1,6 @@
 require 'sqlite3'
-require './forex_db_table_utils'
+require File.dirname(__FILE__)  + '/forex_db_table_utils'
+require File.dirname(__FILE__)  + '/forex_data_record'
 
 class ForexDb 
     def initialize(currency_pair, range_string)
@@ -26,6 +27,17 @@ class ForexDb
             end
         end
         db.close
+    end
+    
+    def select_timestamp_range(start_timestamp, end_timestamp)
+        record_array = Array.new
+        db = connect
+        db.results_as_hash = true
+        db.execute("select * from #{@table_name} where time_id >= #{start_timestamp} and time_id <= #{end_timestamp}") do |row|
+            record = ForexDataRecord.create_record_from_db_row(row)
+            record_array.push(record)
+        end
+        record_array
     end
     
     def all

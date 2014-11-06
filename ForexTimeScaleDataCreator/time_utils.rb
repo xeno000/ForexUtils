@@ -1,4 +1,4 @@
-class ForexTimeUtils
+class TimeUtils
     def self.create_time_obj(time_id)
         if data = time_id.to_s.match(/([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/)
             year = data[1].to_i
