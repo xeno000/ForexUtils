@@ -54,6 +54,7 @@ class ForexDb
                 forex_time_scale_rawdata_array.push(ForexTimeScaleRawData.new(time_range, record_array))
             end
         end
+        db.close
         forex_time_scale_rawdata_array
     end
     
