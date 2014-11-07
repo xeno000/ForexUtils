@@ -40,6 +40,23 @@ class ForexDb
         record_array
     end
     
+    def select_time_range_array(time_range_array)
+        forex_time_scale_rawdata_array = Array.new
+        db = connect
+        db.results_as_hash = true
+        db.transaction do
+            time_range_array.each do |time_range|
+                record_array = Array.new
+                db.execute("select * from #{@table_name} where time_id >= #{time_range.range_start} and time_id <= #{time_range.range_end}") do |row|
+                    record = ForexDataRecord.create_record_from_db_row(row)
+                    record_array.push(record)
+                end
+                forex_time_scale_rawdata_array.push(ForexTimeScaleRawData.new(time_range, record_array))
+            end
+        end
+        forex_time_scale_rawdata_array
+    end
+    
     def all
         db = connect
         db.execute("select * from #{@table_name}") do |row|
