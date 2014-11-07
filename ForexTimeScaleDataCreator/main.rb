@@ -24,7 +24,7 @@ time_range_array = TimeRangeArrayFactory.create_array(start_time.to_i, end_time.
 db = ForexDb.new(currency_pair, forex_db_range_string)
 time_scale_db = ForexTimeScaleDb.new(currency_pair, time_scale)
 
-chunk_size = 10
+chunk_size = 100000
 i = 0
 total = 0
 chunk_array = Array.new
