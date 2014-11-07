@@ -1,6 +1,6 @@
 require '../ForexTimeScaleDataCreator/time_utils'
 
-class ForexDataRecord
+class ForexDataRecord # 1分足データ
     
     def self.create_record_from_line(line)
         record = self.new
@@ -11,6 +11,7 @@ class ForexDataRecord
             record.high = data[5].to_f
             record.low = data[6].to_f
             record.close = data[7].to_f
+            record.close_timestamp = record.time_id + 59
         end
         record
     end
@@ -23,6 +24,7 @@ class ForexDataRecord
         record.high = row['high']
         record.low = row['low']
         record.close = row['close']
+        record.close_timestamp = record.time_id + 59
         record
     end
     
@@ -32,4 +34,5 @@ class ForexDataRecord
     attr_accessor :high
     attr_accessor :low
     attr_accessor :close
+    attr_accessor :close_timestamp
 end
