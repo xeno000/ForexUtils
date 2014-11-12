@@ -26,7 +26,7 @@ chunk_array = Array.new
 folder.all_files.each do |path|
     i += 1
     total += 1
-    p  i.to_s + " " + total.to_s + " path " + path
+    #p  i.to_s + " " + total.to_s + " path " + path
     
     forex_file = ForexDataFile.new(path)
     forex_file.read
@@ -36,10 +36,12 @@ folder.all_files.each do |path|
     chunk_array.concat(record_array)
     
     if i==chunk_size
+        p  i.to_s + " " + total.to_s
         forex_db.insert_forex_data_record_array(chunk_array)
         i = 0
         chunk_array = Array.new
     end
 end
 
+p  i.to_s + " " + total.to_s
 forex_db.insert_forex_data_record_array(chunk_array)

@@ -24,7 +24,7 @@ time_range_array = TimeRangeArrayFactory.create_array(start_time.to_i, end_time.
 db = ForexDb.new(currency_pair)
 time_scale_db = ForexTimeScaleDb.new(currency_pair, time_scale)
 
-chunk_size = 10000
+chunk_size = 100000
 i = 0
 total = 0
 chunk_array = Array.new
@@ -33,7 +33,7 @@ time_range_store = Array.new
 
 time_range_array.each do |time_range|
     time_range_store.push(time_range)
-    if chunk_size == time_range_store.count
+    if chunk_size < time_range_store.count*time_scale.minute
         total += 1
         forex_time_scale_rawdata_array = db.select_time_range_array(time_range_store)
         forex_time_scale_data_record_array = ForexTimeScaleDataRecordArrayFactory.create_array_from_rawdata_array(forex_time_scale_rawdata_array)
@@ -72,4 +72,4 @@ end
 #    time_scale_db.insert_forex_time_scale_data_record_array(chunk_array)
 #end
 
-p currency_pair + " " + time_scale_s + " " + start_s + " " + end_s + " " + forex_db_range_string
+p currency_pair + " " + time_scale_s + " " + start_s + " " + end_s
