@@ -12,7 +12,7 @@ class ForexDbTableUtils
         SQL
     end
     
-    def self.create_table_name(currency_pair, range_string)
-        currency_pair + "_" + "1_minute" + "_" + range_string
+    def self.create_table_name(currency_pair)
+        currency_pair + "_" + "1_minute"
     end
 end

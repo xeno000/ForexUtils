@@ -14,14 +14,14 @@ currency_pair = ARGV[0] # USDJPY EURUSD
 time_scale_s = ARGV[1] # 15M 1H 4H 1D
 start_s = ARGV[2] # 200701010000
 end_s = ARGV[3] # 201411010000
-forex_db_range_string = ARGV[4] # 2007_2014 ForexDbのテーブル名に使用
+#forex_db_range_string = ARGV[4] # 2007_2014 ForexDbのテーブル名に使用
 
 start_time = TimeUtils.create_time_obj(start_s)
 end_time = TimeUtils.create_time_obj(end_s)
 time_scale = ForexTimeScale.new(time_scale_s)
 time_range_array = TimeRangeArrayFactory.create_array(start_time.to_i, end_time.to_i, time_scale)
 
-db = ForexDb.new(currency_pair, forex_db_range_string)
+db = ForexDb.new(currency_pair)
 time_scale_db = ForexTimeScaleDb.new(currency_pair, time_scale)
 
 chunk_size = 10000

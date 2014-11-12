@@ -10,10 +10,10 @@ require '../ForexDataCrawler/forex_data_folder'
 # フォルダにあるデータファイル(Zip)全て使って、指定した通貨の1分足DBを作成
 
 currency_pair = ARGV[0]
-data_range = ARGV[1] # テーブル名に使用
-forex_data_file_folder_name = ARGV[2] # ForexのZipファイルがあるフォルダ名
+#data_range = ARGV[1] # テーブル名に使用
+forex_data_file_folder_name = ARGV[1] # ForexのZipファイルがあるフォルダ名
 
-forex_db = ForexDb.new(currency_pair, data_range)
+forex_db = ForexDb.new(currency_pair)
 forex_db.set_table
 
 folder = ForexDataFolder.read(forex_data_file_folder_name)

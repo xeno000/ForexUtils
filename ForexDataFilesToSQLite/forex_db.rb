@@ -3,10 +3,10 @@ require File.dirname(__FILE__)  + '/forex_db_table_utils'
 require File.dirname(__FILE__)  + '/forex_data_record'
 
 class ForexDb 
-    def initialize(currency_pair, range_string)
+    def initialize(currency_pair)
         @db_file_name = "forex.db"
         @db_file_path = File.dirname(__FILE__) + "/" + @db_file_name
-        @table_name = ForexDbTableUtils.create_table_name(currency_pair, range_string)
+        @table_name = ForexDbTableUtils.create_table_name(currency_pair)
     end
     
     def connect
