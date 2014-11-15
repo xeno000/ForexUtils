@@ -5,9 +5,7 @@ require './time_range'
 require '../ForexDataFilesToSQLite/forex_db'
 require './forex_time_scale_data_record_array_factory'
 require './forex_time_scale_db'
-
 require './forex_time_scale_rawdata'
-
 require 'benchmark'
 
 # 指定した通貨、時間足、範囲で時間足DBを作成
@@ -23,11 +21,9 @@ start_time = TimeUtils.create_time_obj(start_s)
 end_time = TimeUtils.create_time_obj(end_s)
 time_scale = ForexTimeScale.new(time_scale_s)
 time_range_array = Array.new
-
 result = Benchmark.realtime do
     time_range_array = TimeRangeArrayFactory.create_array(start_time.to_i, end_time.to_i, time_scale)
 end
-
 p "TimeRangeArrayFactory.create_array() #{result}s"
 
 db = ForexDb.new(currency_pair)
@@ -57,17 +53,14 @@ time_range_array.each do |time_range|
     if chunk_size < time_range_store.count
         total += 1
         forex_time_scale_data_record_array = Array.new
-        
         result = Benchmark.realtime do
             forex_time_scale_data_record_array = db.select_forex_time_scale_data_record_array(time_range_store)
         end
-        
         p "db.select_forex_time_scale_data_record_array() #{result}s"
         
         result = Benchmark.realtime do
             time_scale_db.insert_forex_time_scale_data_record_array(forex_time_scale_data_record_array)
         end
-        
         p "time_scale_db.insert_forex_time_scale_data_record_array() #{result}s"
         
         time_range_store = Array.new
@@ -85,8 +78,18 @@ end
 =end
 
 if  0 < time_range_store.count
-    forex_time_scale_data_record_array = db.select_forex_time_scale_data_record_array(time_range_store)
-    time_scale_db.insert_forex_time_scale_data_record_array(forex_time_scale_data_record_array)
+    #forex_time_scale_data_record_array = db.select_forex_time_scale_data_record_array(time_range_store)
+    #time_scale_db.insert_forex_time_scale_data_record_array(forex_time_scale_data_record_array)
+    forex_time_scale_data_record_array = Array.new
+    result = Benchmark.realtime do
+        forex_time_scale_data_record_array = db.select_forex_time_scale_data_record_array(time_range_store)
+    end
+    p "db.select_forex_time_scale_data_record_array() #{result}s"
+        
+    result = Benchmark.realtime do
+        time_scale_db.insert_forex_time_scale_data_record_array(forex_time_scale_data_record_array)
+    end
+    p "time_scale_db.insert_forex_time_scale_data_record_array() #{result}s"
 end
 
 
