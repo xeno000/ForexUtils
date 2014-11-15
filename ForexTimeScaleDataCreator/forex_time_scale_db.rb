@@ -3,7 +3,7 @@ require './forex_time_scale_data_record'
 
 class ForexTimeScaleDb
     def initialize(currency_pair, time_scale)
-        @db_file_name = "forex_time_scale_test.sqlite"
+        @db_file_name = "forex_time_scale.sqlite"
         @db_file_path = File.dirname(__FILE__) + "/" + @db_file_name
         @table_name = ForexTimeScaleDbUtils.create_table_name(currency_pair, time_scale)
         set_table
