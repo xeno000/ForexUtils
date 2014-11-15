@@ -9,8 +9,8 @@ class ForexTimeScaleDbUtils
             high REAL NOT NULL,
             low REAL NOT NULL,
             close REAL NOT NULL,
-            high_minute_close_timestamp TIMESTAMP NOT NULL,
-            low_minute_close_timestamp TIMESTAMP NOT NULL,
+            high_minute_close_timestamp TIMESTAMP NOT NULL UNIQUE,
+            low_minute_close_timestamp TIMESTAMP NOT NULL UNIQUE,
             close_minute_close_timestamp TIMESTAMP NOT NULL UNIQUE
         );
         SQL
