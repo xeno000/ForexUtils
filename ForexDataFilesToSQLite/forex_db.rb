@@ -65,7 +65,7 @@ class ForexDb
         db.transaction do
             time_range_array.each do |time_range|
                 record_array = Array.new
-                db.execute("select * from #{@table_name} where time_id >= #{time_range.range_start} and time_id <= #{time_range.range_end} limit 15") do |row|
+                db.execute("select * from #{@table_name} where time_id >= #{time_range.range_start} and time_id <= #{time_range.range_end}") do |row|
                     record = ForexDataRecord.create_record_from_db_row(row)
                     record_array.push(record)
                 end
