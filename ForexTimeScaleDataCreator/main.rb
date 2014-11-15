@@ -53,35 +53,23 @@ time_range_array.each do |time_range|
         time_range_store = Array.new
         p total
     end
-    
-=begin
-    record_array = db.select_timestamp_range(time_range.range_start, time_range.range_end)
-    
-    if record_array.count != 0
-        i += 1
-        total += 1
-        forex_time_scale_data_record = ForexTimeScaleDataRecord.create_record_from_forex_data_record_array(record_array)
-        chunk_array.push(forex_time_scale_data_record)
-        if chunk_size == i
-            time_scale_db.insert_forex_time_scale_data_record_array(chunk_array)
-            i = 0
-            chunk_array = Array.new
-            p total
-        end
-    end
-=end
-
 end
 
+
+=begin
 if  0 < time_range_store.count
     forex_time_scale_rawdata_array = db.select_time_range_array(time_range_store)
     forex_time_scale_data_record_array = ForexTimeScaleDataRecordArrayFactory.create_array_from_rawdata_array(forex_time_scale_rawdata_array)
     time_scale_db.insert_forex_time_scale_data_record_array(forex_time_scale_data_record_array)
 end
+=end
+
+if  0 < time_range_store.count
+    forex_time_scale_data_record_array = db.select_forex_time_scale_data_record_array(time_range_store)
+    time_scale_db.insert_forex_time_scale_data_record_array(forex_time_scale_data_record_array)
+end
 
 
-#if chunk_array.count != 0
-#    time_scale_db.insert_forex_time_scale_data_record_array(chunk_array)
-#end
+
 
 p currency_pair + " " + time_scale_s + " " + start_s + " " + end_s
