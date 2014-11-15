@@ -9,6 +9,7 @@ require './forex_time_scale_db'
 require './forex_time_scale_rawdata'
 
 # 指定した通貨、時間足、範囲で時間足DBを作成
+# ruby -rrubygems main.rb USDJPY 15M 200701010000 201411010000
 
 currency_pair = ARGV[0] # USDJPY EURUSD
 time_scale_s = ARGV[1] # 15M 1H 4H 1D
@@ -32,11 +33,22 @@ chunk_array = Array.new
 time_range_store = Array.new
 
 time_range_array.each do |time_range|
+=begin
     time_range_store.push(time_range)
     if chunk_size < time_range_store.count*time_scale.minute
         total += 1
         forex_time_scale_rawdata_array = db.select_time_range_array(time_range_store)
         forex_time_scale_data_record_array = ForexTimeScaleDataRecordArrayFactory.create_array_from_rawdata_array(forex_time_scale_rawdata_array)
+        time_scale_db.insert_forex_time_scale_data_record_array(forex_time_scale_data_record_array)
+        time_range_store = Array.new
+        p total
+    end
+=end
+    
+    time_range_store.push(time_range)
+    if chunk_size < time_range_store.count
+        total += 1
+        forex_time_scale_data_record_array = db.select_forex_time_scale_data_record_array(time_range_store)
         time_scale_db.insert_forex_time_scale_data_record_array(forex_time_scale_data_record_array)
         time_range_store = Array.new
         p total
