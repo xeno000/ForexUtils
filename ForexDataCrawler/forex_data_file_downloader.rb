@@ -5,12 +5,14 @@ require './forex_data_file_utils'
 class ForexDataFileDownLoader
     def self.download(url, folder)
         file_path = folder.path + ForexDataFileUtils.create_file_name_from_url(url)
-        open(url) do |data|
-            @file_read = data.read
-        end
+        if !File.exists?(file_path)
+            open(url) do |data|
+                @file_read = data.read
+            end
          
-        open(file_path, 'wb') do |output|
-            output.write(@file_read)
+            open(file_path, 'wb') do |output|
+                output.write(@file_read)
+            end
         end
     end
 end
