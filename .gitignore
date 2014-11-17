@@ -1,3 +1,5 @@
 ForexDataCrawler/ForexiteZip/
 test*
 *.db
+*.sqlite
+*.zip

@@ -33,7 +33,7 @@ total = forex_data_url_array.count
 forex_data_url_array.each do |url|
     i += 1
     p i.to_s + "/" + total.to_s + " " + ForexDataFileUtils.create_file_name_from_url(url)
-    #ForexDataFileDownLoader.download(url, folder)
+    ForexDataFileDownLoader.download(url, folder)
 end
 
 
