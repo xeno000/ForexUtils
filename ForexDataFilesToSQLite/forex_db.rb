@@ -23,7 +23,11 @@ class ForexDb
         db = connect
         db.transaction do
             array.each do |record|
-                db.execute("insert or ignore into #{@table_name} ( time_id, currency_pair, open, high, low, close) values (?,?,?,?,?,?)", record.time_id, record.currency_pair, record.open, record.high, record.low, record.close)
+                begin
+                    db.execute("insert or ignore into #{@table_name} ( time_id, currency_pair, open, high, low, close) values (?,?,?,?,?,?)", record.time_id, record.currency_pair, record.open, record.high, record.low, record.close)
+                rescue => e 
+                    p e.message + " " + @table_name + "," + record.time_id + "," + record.currency_pair + "," + record.open + "," + record.high + "," + record.low + "," + record.close
+                end
             end
         end
         db.close
