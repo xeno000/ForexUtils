@@ -24,12 +24,16 @@ class ForexDataWebFile
         if !File.exists?(file_path)
             file_read = nil
             
-            open(@url) do |data|
-                file_read = data.read
-            end
-         
-            open(file_path, 'wb') do |output|
-                output.write(file_read)
+            begin
+                open(@url) do |data|
+                    file_read = data.read
+                end
+            rescue => e
+                p e.message + " " + @url 
+            else
+                open(file_path, 'wb') do |output|
+                    output.write(file_read)
+                end
             end
         end
     end

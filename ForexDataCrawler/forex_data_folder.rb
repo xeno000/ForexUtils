@@ -4,7 +4,7 @@ require File.dirname(__FILE__)  + '/forex_data_folder_utils'
 class ForexDataFolder
     
     @folder_name = String.new
-    @path = String.new
+    @path = String.new 
 
   def self.create(folder_name)
     folder_name = ForexDataFolderUtils.create_name(folder_name)

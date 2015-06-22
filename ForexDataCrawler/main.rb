@@ -16,13 +16,14 @@ end
 
 start_time_str = ARGV[0] #20070101
 end_time_str = ARGV[1] #20100101
+folder_name = ARGV[2] 
 
 start_time = create_time(start_time_str)
 end_time = create_time(end_time_str)
 
 
 
-folder = ForexDataFolder.create("2007_2014")
+folder = ForexDataFolder.create(folder_name)
 
 url2007 = "http://www.forexite.com/free_forex_quotes/forex_history_arhiv_2007.html"
 url2008 = "http://www.forexite.com/free_forex_quotes/forex_history_arhiv_2008.html"
