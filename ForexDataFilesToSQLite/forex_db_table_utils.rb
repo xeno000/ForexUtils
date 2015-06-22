@@ -1,7 +1,7 @@
 class ForexDbTableUtils
     def self.create_table_sql(table_name)
         sql = <<-SQL 
-        CREATE TABLE #{table_name} (
+        CREATE TABLE IF NOT EXISTS #{table_name} (
             time_id TIMESTAMP NOT NULL PRIMARY KEY,
             currency_pair TEXT NOT NULL,
             open REAL NOT NULL,

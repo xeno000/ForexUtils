@@ -3,7 +3,8 @@ class ForexDataFolderUtils
     @@default_folder_name = "ForexiteZip"
     
     def self.create_name(folder_name)
-        folder_name = folder_name + "-" + Time.now.strftime("%Y%m%d_%H%M%S")
+        folder_name = folder_name
+        #folder_name = folder_name + "-" + Time.now.strftime("%Y%m%d_%H%M%S")
     end
     
     def self.create_path(folder_name)

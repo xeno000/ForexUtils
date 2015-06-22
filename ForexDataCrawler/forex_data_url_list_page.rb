@@ -18,4 +18,11 @@ class ForexDataUrlListPage
     url_list
   end
   
+  def select_forex_data_file_name_all
+    file_name_list = Array.new
+    @file_read.scan(%r{<a href=\"\d{4}/\d{2}/(\d{6}\.zip)\">}) do |file_name|
+        file_name_list.push(file_name.first)
+    end
+    file_name_list
+  end
 end

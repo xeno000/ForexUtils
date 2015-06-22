@@ -3,7 +3,7 @@ require './forex_time_scale'
 class ForexTimeScaleDbUtils
     def self.create_table_sql(table_name)
         sql = <<-SQL 
-        CREATE TABLE #{table_name} (
+        CREATE TABLE IF NOT EXISTS #{table_name} (
             open_minute_open_timestamp TIMESTAMP NOT NULL PRIMARY KEY,
             open REAL NOT NULL,
             high REAL NOT NULL,
