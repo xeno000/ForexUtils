@@ -2,22 +2,29 @@ require './forex_data_file'
 require './forex_data_record_array_factory'
 require './forex_db'
 require '../ForexDataCrawler/forex_data_folder'
+require './forex_1minute_data_creator'
 
 #currency_pair_str = "USDJPY"
 #data_range = "20140102_20140114"
 #forex_data_file_folder_name = "test_2007_2014-20141104_045903"
 
 # フォルダにあるデータファイル(Zip)全て使って、指定した通貨の1分足DBを作成
-
-currency_pair_str = ARGV[0]
+# nohup ruby main.rb EURUSD,USDJPY,USDCHF 2007_2014 &
+currency_pair_str_array = ARGV[0].split(",")
 #data_range = ARGV[1] # テーブル名に使用
 forex_data_file_folder_name = ARGV[1] # ForexのZipファイルがあるフォルダ名
 
-forex_db = ForexDb.new(currency_pair_str)
-forex_db.set_table
+#forex_db = ForexDb.new(currency_pair_str)
+#forex_db.set_table
 
 folder = ForexDataFolder.read(forex_data_file_folder_name)
 
+currency_pair_str_array.each do |currency_pair_str|
+    creator = Forex1MinuteDataCreator.new(currency_pair_str, folder)
+    creator.create
+end 
+
+=begin
 chunk_size = 300
 i = 0
 total = 0
@@ -45,3 +52,4 @@ end
 
 p  i.to_s + " " + total.to_s
 forex_db.insert_forex_data_record_array(chunk_array)
+=end

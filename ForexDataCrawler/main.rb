@@ -14,6 +14,8 @@ def create_time(time_str)
     time
 end
 
+# nohup ruby main.rb 20070101 20160101 2007_2015 &
+
 start_time_str = ARGV[0] #20070101
 end_time_str = ARGV[1] #20100101
 folder_name = ARGV[2] 
