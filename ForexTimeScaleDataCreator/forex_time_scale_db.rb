@@ -23,7 +23,7 @@ class ForexTimeScaleDb
         db = connect
         db.transaction do
             record_array.each do |record|
-                db.execute("insert or ignore into #{@table_name} ( open_minute_open_timestamp, open, high, low, close, high_minute_close_timestamp, low_minute_close_timestamp, close_minute_close_timestamp) values (?,?,?,?,?,?,?,?)", record.open_minute_open_timestamp, record.open, record.high, record.low, record.close, record.high_minute_close_timestamp, record.low_minute_close_timestamp, record.close_minute_close_timestamp)
+                db.execute("insert or ignore into #{@table_name} ( open_minute_open_timestamp, open, high, low, close, close_minute_close_timestamp) values (?,?,?,?,?,?)", record.open_minute_open_timestamp, record.open, record.high, record.low, record.close, record.close_minute_close_timestamp)
             end 
         end
         db.close
